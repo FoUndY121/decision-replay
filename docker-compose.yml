@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: decision_replay_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: decision
+      POSTGRES_PASSWORD: decision
+      POSTGRES_DB: decision_replay
+    ports:
+      - "5433:5432"
+    volumes:
+      - decision_replay_pgdata:/var/lib/postgresql/data
+
+volumes:
+  decision_replay_pgdata:
+
+
+
+
+
+
