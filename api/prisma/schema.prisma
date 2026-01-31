@@ -12,3 +12,36 @@ model User {
   name      String?
   createdAt DateTime @default(now())
 }
+
+enum DecisionStatus {
+  draft
+  final
+  archived
+}
+
+model Decision {
+  id          String         @id @default(cuid())
+  title       String
+  context     String?        // longer text: situation background
+  status      DecisionStatus @default(draft)
+
+  // quick scoring for analytics
+  importance  Int            @default(3) // 1..5 (you validate in DTO)
+  confidence  Int            @default(3) // 1..5
+
+  // optional: when you consider decision "done"
+  decidedAt   DateTime       @default(now())
+  resolvedAt  DateTime?
+
+  // outcome summary (optional in MVP)
+  outcome     String?
+
+  // metadata
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  deletedAt   DateTime?      // soft delete
+
+  @@index([status, decidedAt])
+  @@index([deletedAt])
+}
+
