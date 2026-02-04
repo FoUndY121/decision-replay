@@ -36,6 +36,14 @@ export class DecisionsController {
   deleteDecision(@Param('id') id: string) {
     return this.decisionsService.deleteDecision(id);
   }
+
+  // REPLAYS CRUD
+  @Post(':decisionId/replays')
+  createReplay(
+    @Param('decisionId') decisionId: string,
+    @Body() dto: CreateDecisionDto,
+  ) {
+    return this.decisionsService.createReplay(decisionId, dto);
+  }
 }
-
-
+ 

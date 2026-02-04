@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from 'prisma/prisma.module';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
 import { DecisionsModule } from './decisions/decisions.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [

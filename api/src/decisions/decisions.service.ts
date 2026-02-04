@@ -41,14 +41,19 @@ export class DecisionsService {
       },
     });
   }
+
+  // REPLAYS CRUD
+  createReplay(decisionId: string, dto: CreateDecisionDto) {
+    return this.prisma.replay.create({
+      data: {
+        decisionId: decisionId,
+        whatHappened: dto.title,
+        whatIThought: dto.context,
+        whatIMissed: '',
+        lessons: '',
+        nextTime: '',
+        score: dto.importance,
+      },
+    });
+  }
 }
-
-// POST /decisions — создать решение
-
-// GET /decisions — список (фильтры: дата, теги, исход, важность)
-
-// GET /decisions/:id — детальная страница
-
-// PATCH /decisions/:id — редактировать (заголовок, контекст, статус)
-
-// DELETE /decisions/:id — удалить (обычно soft delete)

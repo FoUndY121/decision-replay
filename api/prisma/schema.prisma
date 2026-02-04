@@ -35,7 +35,7 @@ model Decision {
 
   // outcome summary (optional in MVP)
   outcome     String?
-
+  replays     Replay[]       
   // metadata
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
@@ -45,3 +45,27 @@ model Decision {
   @@index([deletedAt])
 }
 
+model Replay {
+  id          String   @id @default(cuid())
+
+  // relation
+  decisionId  String
+  decision    Decision @relation(fields: [decisionId], references: [id], onDelete: Cascade)
+
+  // content
+  whatHappened String?
+  whatIThought String?
+  whatIMissed  String?
+  lessons      String?
+  nextTime     String?
+
+  // quick score (you validate in DTO)
+  score       Int?     // например 1..5 или 1..10 — решишь в DTO
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+
+  @@index([decisionId, createdAt])
+  @@index([deletedAt])
+}
